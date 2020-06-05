@@ -29,12 +29,12 @@ const (
 func NewService() (s *Service, err error) {
 	data, err := ioutil.ReadFile(SecretFileName)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	conf, err := google.JWTConfigFromJSON(data, Scope)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	s = NewServiceWithClient(conf.Client(oauth2.NoContext))
